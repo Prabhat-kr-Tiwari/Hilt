@@ -1,6 +1,7 @@
 package com.example.hiltdagger2
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -16,29 +17,55 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         println(someClass.doAThing())
-        println(someClass.doSomeOtherThing())
+
     }
 }
 
+//first issue of constructor injection with using the interface
+
+/*
 class SomeClass
 @Inject
 constructor(
-    private val someOtherClass: SomeOtherClass
+    private val SomeInterfaceImpl: SomeInterface
 ){
-    fun doAThing():String{
-        return "look i do a thing"
-    }
-
-    fun doSomeOtherThing():String{
-        return someOtherClass.doSomeOtherThing()
+    fun doAThing(): String{
+        return "Look I got: ${SomeInterfaceImpl.getAThing()}"
     }
 }
 
-class SomeOtherClass
+class SomeInterfaceImpl
 @Inject
-constructor(){
-
-    fun doSomeOtherThing():String{
-        return "look Doing some other thing"
+constructor():SomeInterface{
+    override fun getAThing() : String{
+        return "A Thing"
     }
+}
+interface SomeInterface{
+    fun getAThing():String
+}*/
+
+
+// second issue
+class SomeClass
+@Inject
+constructor(
+
+    //this is from third party library
+    private val gson: Gson
+){
+    fun doAThing(): String{
+        return "something"
+    }
+}
+
+class SomeInterfaceImpl
+@Inject
+constructor():SomeInterface{
+    override fun getAThing() : String{
+        return "A Thing"
+    }
+}
+interface SomeInterface{
+    fun getAThing():String
 }
