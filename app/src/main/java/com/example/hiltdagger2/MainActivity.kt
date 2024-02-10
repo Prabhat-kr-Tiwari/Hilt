@@ -93,13 +93,11 @@ abstract class MyModule{
 @InstallIn(SingletonComponent::class)
 @Module
  class MyModule{
-
     @Singleton
     @Provides
     fun provideSomeString():String{
         return "Some string"
     }
-
 
     @Singleton
     @Provides
@@ -114,7 +112,6 @@ abstract class MyModule{
     fun provideGson():Gson{
         return Gson()
     }
-
 }
 
 
